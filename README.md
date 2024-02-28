@@ -33,3 +33,11 @@ To build and deploy in a single command run the following:
 ```
 make deploy-dev
 ```
+
+## Code Formatting
+This project is leveraging [ktfmt](https://facebook.github.io/ktfmt/) via the [Spotless Gradle Plugin](https://github.com/diffplug/spotless).
+
+To run Spotless and check/fix lint errors run the following:
+```
+make lint
+```

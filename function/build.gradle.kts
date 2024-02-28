@@ -4,11 +4,24 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.shadowJar)
+    alias(libs.plugins.spotless)
 }
 
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(libs.versions.jvmVersion.get()))
+    }
+}
+
+spotless {
+    kotlin {
+        ktfmt()
+            .kotlinlangStyle()
+            .configure { ktfmtOptions ->
+                ktfmtOptions.setMaxWidth(125)
+                ktfmtOptions.setBlockIndent(4)
+                ktfmtOptions.setContinuationIndent(4)
+            }
     }
 }
 

@@ -1,3 +1,6 @@
+lint:
+	./gradlew spotlessApply
+
 build-jar:
 	./gradlew clean shadowJar
 

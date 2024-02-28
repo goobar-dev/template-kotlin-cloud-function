@@ -4,18 +4,15 @@ import com.google.cloud.functions.HttpRequest
 import kotlin.jvm.optionals.getOrNull
 
 internal val HttpRequest?.cloudTraceId: String?
-    get() = when (this) {
-        null -> null
-        else -> {
-            getFirstHeader("x-cloud-trace-context")
-                .map { traceHeader ->
-                    traceHeader
-                        .split("/".toRegex())
-                        .dropLastWhile { it.isEmpty() }
-                        .toTypedArray()[0]
-                }.getOrNull()
+    get() =
+        when (this) {
+            null -> null
+            else -> {
+                getFirstHeader("x-cloud-trace-context")
+                    .map { traceHeader -> traceHeader.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0] }
+                    .getOrNull()
+            }
         }
-    }
 
 @JvmInline
 value class ProjectId private constructor(val id: String) {
@@ -33,10 +30,10 @@ value class ProjectId private constructor(val id: String) {
     }
 }
 
-internal fun HttpRequest.buildTraceAttribute(projectId: ProjectId = ProjectId()): Pair<String, String>? = when (cloudTraceId) {
-    null -> null
-    else ->  {
-        "logging.googleapis.com/trace" to
-                String.format("projects/%s/traces/%s", projectId.id, cloudTraceId)
+internal fun HttpRequest.buildTraceAttribute(projectId: ProjectId = ProjectId()): Pair<String, String>? =
+    when (cloudTraceId) {
+        null -> null
+        else -> {
+            "logging.googleapis.com/trace" to String.format("projects/%s/traces/%s", projectId.id, cloudTraceId)
+        }
     }
-}
