@@ -11,6 +11,9 @@ If you would like to customize how the function is invoked, you can run the Grad
 ./gradlew runFunction -Prun.functionTarget=dev.goobar.CloudFunction -Prun.functionPort=8080
 ```
 
+## Testing Locally
+Within the `doc/requests` directory are `.http` files that can be used within IntelliJ Ultimate to tests requests.
+
 ## Deploying to Google Cloud
 To deploy this project as a Cloud Function requires two things:
 1. Build a jar
