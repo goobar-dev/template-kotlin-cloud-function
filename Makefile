@@ -1,6 +1,12 @@
 lint:
 	./gradlew spotlessApply
 
+test:
+	./gradlew test
+
+check:
+	./gradlew check
+
 build-jar:
 	./gradlew clean shadowJar
 

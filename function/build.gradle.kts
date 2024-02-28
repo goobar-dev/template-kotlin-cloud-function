@@ -1,5 +1,4 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -34,16 +33,13 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-repositories {
-    mavenCentral()
-}
-
 // Create a new build configuration that supports locally running the
 // Cloud Function via the Functions Framework.
 // The task will set the GCP_PROJECT_ID env variable to LOCAL to indicate running from local environment
 // The task requires two Gradle properties be passed to it:
 //    - run.functionTarget (name of the class implementing HttpFunction)
 //    - run.port (port that the function will be listening on)
+val test: Configuration by configurations.creating
 val invoker: Configuration by configurations.creating
 tasks.register<JavaExec>("runFunction") {
     mainClass = "com.google.cloud.functions.invoker.runner.Invoker"
@@ -59,10 +55,17 @@ tasks.register<JavaExec>("runFunction") {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation(libs.logback.classic)
     implementation(libs.logback.encoder)
 
     implementation(libs.function.framework)
     invoker(libs.function.invoker)
+
+    testImplementation(libs.test.kotest.runner)
+    testImplementation(libs.test.kotest.assertions)
 }
