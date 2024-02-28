@@ -53,6 +53,9 @@ jobs:
       - name: Check
         run: make check
 
+      - name: Build JAR
+        run: make build-jar
+
       - name: Deploy
         run: |
           gcloud functions deploy template-kotlin-cloud-function \
