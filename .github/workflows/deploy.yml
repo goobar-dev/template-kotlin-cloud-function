@@ -38,9 +38,10 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v3
 
-      - id: "auth"
+      - name: Authenticate GCP
         uses: "google-github-actions/auth@v2"
         with:
+          token_format: 'access_token'
           workload_identity_provider: "${{ vars.IDENTITY_PROVIDER }}"
           service_account: "${{ vars.SERVICE_ACCOUNT }}"
           project_id: "${{ vars.GCP_PROJECT_ID }}"
@@ -53,7 +54,7 @@ jobs:
       - name: Check
         run: make check
 
-      - name: "Deploy"
+      - name: Deploy
         run: |
           gcloud functions deploy template-kotlin-cloud-function \
           --gen2 \
