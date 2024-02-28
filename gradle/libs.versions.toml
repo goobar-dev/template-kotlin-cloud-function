@@ -1,0 +1,21 @@
+[versions]
+kotlinVersion="1.9.22"
+jvmVersion="17"
+shadowJarVersion="8.1.1"
+
+functionFramework="1.0.1"
+functionInvoker="1.3.1"
+
+logbackVersion = "1.4.14"
+logbackEncodeVersion = "7.4"
+
+[libraries]
+function-framework = { module = "com.google.cloud.functions:functions-framework-api", version.ref="functionFramework" }
+function-invoker = { module = "com.google.cloud.functions.invoker:java-function-invoker", version.ref="functionInvoker" }
+
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logbackVersion" }
+logback-encoder= { module = "net.logstash.logback:logstash-logback-encoder", version.ref = "logbackEncodeVersion" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinVersion" }
+shadowJar = { id = "com.github.johnrengelman.shadow", version.ref = "shadowJarVersion" }
