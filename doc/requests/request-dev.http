@@ -1,0 +1,2 @@
+GET {{ host }}
+Authorization: Bearer {{ identity-token }}
